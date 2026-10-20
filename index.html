@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToolShare</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- ================= HOME ================= -->
+    <section id="homeScreen" class="screen active">
+
+        <header class="top-header">
+            <div>
+                <h1>ToolShare</h1>
+                <p>Rent. Use. Return.</p>
+            </div>
+
+            <button class="icon-btn" onclick="showNotifications()" aria-label="Notifications">🔔<span id="notificationBadge" class="notification-badge">0</span></button>
+        </header>
+
+        <div class="welcome">
+            <h2>What do you need?</h2>
+            <p>Find the right equipment for your next project.</p>
+        </div>
+
+        <div class="search-box">
+            🔍
+            <input
+                type="text"
+                id="homeSearch"
+                placeholder="Search equipment..."
+                onkeyup="searchEquipment()"
+            >
+        </div>
+
+        <h3 class="section-title">Categories</h3>
+
+        <div class="category-grid">
+
+            <button
+                class="category-card event-card"
+                onclick="openCategory('events')">
+
+                <div class="category-icon">🎉</div>
+
+                <h2>EVENTS</h2>
+
+                <p>Party & event equipment</p>
+
+            </button>
+
+
+            <button
+                class="category-card tools-card"
+                onclick="openCategory('tools')">
+
+                <div class="category-icon">🔧</div>
+
+                <h2>TOOLS</h2>
+
+                <p>Tools & construction equipment</p>
+
+            </button>
+
+
+            <button
+                class="category-card camping-card"
+                onclick="openCategory('camping')">
+
+                <div class="category-icon">⛺</div>
+
+                <h2>CAMPING</h2>
+
+                <p>Outdoor & camping gear</p>
+
+            </button>
+
+
+            <button
+                class="category-card gadgets-card"
+                onclick="openCategory('gadgets')">
+
+                <div class="category-icon">📱</div>
+
+                <h2>GADGETS</h2>
+
+                <p>Phones, cameras & gadgets</p>
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= CATEGORY ================= -->
+    <section id="categoryScreen" class="screen">
+
+        <header class="page-header">
+
+            <button
+                class="back-btn"
+                onclick="goHome()">
+                ‹
+            </button>
+
+            <div>
+                <h2 id="categoryTitle">Tools</h2>
+                <p id="categorySubtitle">
+                    Available equipment
+                </p>
+            </div>
+
+        </header>
+
+
+        <div class="search-box">
+
+            🔍
+
+            <input
+                type="text"
+                id="categorySearch"
+                placeholder="Search equipment..."
+                onkeyup="filterEquipment()"
+            >
+
+        </div>
+
+
+        <div
+            id="equipmentList"
+            class="equipment-list">
+        </div>
+
+    </section>
+
+
+    <!-- ================= DETAILS ================= -->
+    <section id="detailsScreen" class="screen">
+
+        <header class="page-header">
+
+            <button
+                class="back-btn"
+                onclick="goBackToCategory()">
+                ‹
+            </button>
+
+            <div>
+                <h2>Equipment Details</h2>
+            </div>
+
+        </header>
+
+
+        <div
+            class="detail-image"
+            id="detailIcon">
+            🔧
+        </div>
+
+
+        <div class="details-content">
+
+            <span class="availability">
+                ● Available
+            </span>
+
+
+            <h1 id="detailName">
+                Equipment Name
+            </h1>
+
+
+            <p id="detailDescription">
+                Equipment description.
+            </p>
+
+
+            <div class="price-box">
+
+                <strong id="detailPrice">
+                    ₱250
+                </strong>
+
+                <span>
+                    / day
+                </span>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <p>📍 Pickup / Delivery Available</p>
+
+                <p>🛡️ Verified Equipment</p>
+
+                <p>📅 Flexible Rental Period</p>
+
+                <p>🔐 Renter Verification Required</p>
+
+            </div>
+
+
+            <button
+                class="primary-btn"
+                onclick="openBooking()">
+
+                Continue to Rental Details
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= RENTAL DETAILS ================= -->
+    <section id="bookingScreen" class="screen">
+
+        <header class="page-header">
+
+            <button
+                class="back-btn"
+                onclick="openDetails()">
+                ‹
+            </button>
+
+            <div>
+                <h2>Rental Details</h2>
+
+                <p>
+                    Tell us about your rental
+                </p>
+            </div>
+
+        </header>
+
+
+        <!-- PRODUCT -->
+        <div class="booking-tool">
+
+            <span id="bookingIcon">
+                🔧
+            </span>
+
+            <div>
+
+                <strong id="bookingName">
+                    Equipment
+                </strong>
+
+                <p id="bookingPrice">
+                    ₱250 / day
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- QUANTITY -->
+        <div class="form-section">
+
+            <h3>Quantity</h3>
+
+            <p class="form-help">
+                How many units do you want to rent?
+            </p>
+
+
+            <div class="quantity-control">
+
+                <button
+                    onclick="changeQuantity(-1)">
+                    −
+                </button>
+
+                <span id="quantity">
+                    1
+                </span>
+
+                <button
+                    onclick="changeQuantity(1)">
+                    +
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- DATES -->
+        <div class="form-section">
+
+            <h3>Rental Period</h3>
+
+
+            <label>
+                Start Date
+            </label>
+
+            <input
+                type="date"
+                id="startDate"
+            >
+
+
+            <label>
+                Return Date
+            </label>
+
+            <input
+                type="date"
+                id="endDate"
+            >
+
+
+            <label>Rental Start Time</label>
+
+            <input
+                type="time"
+                id="startTime"
+            >
+
+
+            <label>Return Time</label>
+
+            <input
+                type="time"
+                id="returnTime"
+            >
+
+
+            <label>Fulfillment Method</label>
+
+            <div class="fulfillment-options">
+
+                <label class="choice-card">
+                    <input type="radio" name="fulfillment" value="Pickup" checked onchange="updateFulfillmentLabel()">
+                    <span>📦</span>
+                    <strong>Pickup</strong>
+                    <small>Pick up at ToolShare</small>
+                </label>
+
+                <label class="choice-card">
+                    <input type="radio" name="fulfillment" value="Delivery" onchange="updateFulfillmentLabel()">
+                    <span>🚚</span>
+                    <strong>Delivery</strong>
+                    <small>Have it delivered</small>
+                </label>
+
+            </div>
+
+            <div id="scheduleHint" class="schedule-hint">
+                📦 Your equipment will be ready for pickup at the selected start time.
+            </div>
+
+        </div>
+
+
+        <!-- RENTER INFORMATION -->
+        <div class="form-section">
+
+            <h3>Renter Information</h3>
+
+            <p class="form-help">
+                This information will be used for your rental record.
+            </p>
+
+
+            <label>
+                Full Name
+            </label>
+
+            <input
+                type="text"
+                id="fullName"
+                placeholder="Enter your full name"
+            >
+
+
+            <label>
+                Contact Number
+            </label>
+
+            <input
+                type="tel"
+                id="contactNumber"
+                placeholder="09XXXXXXXXX"
+                maxlength="11"
+                inputmode="numeric"
+                pattern="09[0-9]{9}"
+                oninput="sanitizeContactNumber(this)"
+            >
+
+
+            <label>
+                Complete Address
+            </label>
+
+            <textarea
+                id="address"
+                placeholder="House/Unit No., Street, Barangay, City, Province"
+                rows="4">
+            </textarea>
+
+        </div>
+
+
+        <!-- ID VERIFICATION -->
+        <div class="verification-box">
+
+            <div class="verification-header">
+
+                <span class="verification-icon">
+                    🛡️
+                </span>
+
+                <div>
+
+                    <h3>Identity Verification</h3>
+
+                    <p>
+                        Verification is required before booking.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <label>
+                ID Type
+            </label>
+
+            <select id="idType">
+
+                <option value="">
+                    Select valid ID
+                </option>
+
+                <option>
+                    Driver's License
+                </option>
+
+                <option>
+                    Passport
+                </option>
+
+                <option>
+                    National ID
+                </option>
+
+                <option>
+                    UMID
+                </option>
+
+                <option>
+                    School ID
+                </option>
+
+            </select>
+
+
+            <label>
+                ID Number
+            </label>
+
+            <input
+                type="text"
+                id="idNumber"
+                placeholder="Enter ID number"
+            >
+
+
+            <label>
+                Upload Valid ID
+            </label>
+
+            <input
+                type="file"
+                id="idFile"
+                accept="image/*,.pdf"
+            >
+
+
+            <div
+                id="verificationStatus"
+                class="verification-status">
+
+                ⚠️ Verification required
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="primary-btn"
+            onclick="validateRentalDetails()">
+
+            Continue to Terms & Conditions
+
+        </button>
+
+    </section>
+
+
+    <!-- ================= TERMS ================= -->
+    <section id="termsScreen" class="screen">
+
+        <header class="page-header">
+
+            <button
+                class="back-btn"
+                onclick="openBooking()">
+                ‹
+            </button>
+
+            <div>
+
+                <h2>Terms & Conditions</h2>
+
+                <p>
+                    Please read before booking
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <div class="terms-card">
+
+            <h3>ToolShare Rental Rules</h3>
+
+
+            <div class="term-item">
+
+                <strong>
+                    1. Proper Use
+                </strong>
+
+                <p>
+                    The rented equipment must only be used
+                    for its intended purpose and according
+                    to the manufacturer's safety instructions.
+                </p>
+
+            </div>
+
+
+            <div class="term-item">
+
+                <strong>
+                    2. Damage
+                </strong>
+
+                <p>
+                    The renter is responsible for damage
+                    caused by misuse, negligence, accidents,
+                    or unauthorized modifications.
+                </p>
+
+                <div class="penalty-box">
+                    Damage penalty may be up to
+                    <strong>the repair cost</strong>
+                    or the equipment's replacement value
+                    depending on the severity.
+                </div>
+
+            </div>
+
+
+            <div class="term-item">
+
+                <strong>
+                    3. Lost Equipment
+                </strong>
+
+                <p>
+                    If the equipment is lost or cannot be
+                    returned, the renter may be charged
+                    the replacement value of the equipment.
+                </p>
+
+                <div class="penalty-box">
+                    Lost equipment penalty:
+                    <strong>Replacement Cost</strong>
+                </div>
+
+            </div>
+
+
+            <div class="term-item">
+
+                <strong>
+                    4. Late Return
+                </strong>
+
+                <p>
+                    Equipment must be returned on or before
+                    the agreed return date and time.
+                </p>
+
+                <div class="penalty-box">
+
+                    Late return penalty:
+
+                    <strong>
+                        ₱100 per hour
+                    </strong>
+
+                    after the agreed return time.
+
+                </div>
+
+            </div>
+
+
+            <div class="term-item">
+
+                <strong>
+                    5. Non-Return
+                </strong>
+
+                <p>
+                    Failure to return the equipment without
+                    notifying ToolShare may result in additional
+                    charges and account restrictions.
+                </p>
+
+            </div>
+
+
+            <div class="term-item">
+
+                <strong>
+                    6. Identity Verification
+                </strong>
+
+                <p>
+                    ToolShare may require identity verification
+                    before releasing rented equipment.
+                </p>
+
+            </div>
+
+
+            <div class="term-item">
+
+                <strong>
+                    7. Security Deposit
+                </strong>
+
+                <p>
+                    Some high-value equipment may require
+                    a refundable security deposit.
+                </p>
+
+            </div>
+
+
+            <div class="agreement-box">
+
+                <label class="checkbox-label">
+
+                    <input
+                        type="checkbox"
+                        id="agreeTerms"
+                    >
+
+                    <span>
+                        I have read and agree to the
+                        ToolShare Terms & Conditions,
+                        including the damage, loss,
+                        and late-return penalties.
+                    </span>
+
+                </label>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="primary-btn"
+            onclick="acceptTerms()">
+
+            Review Booking
+
+        </button>
+
+    </section>
+
+
+    <!-- ================= SUMMARY ================= -->
+    <section id="summaryScreen" class="screen">
+
+        <header class="page-header">
+
+            <button
+                class="back-btn"
+                onclick="openTerms()">
+                ‹
+            </button>
+
+            <div>
+
+                <h2>Booking Summary</h2>
+
+                <p>
+                    Review your rental
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <div class="summary-card">
+
+            <div
+                class="summary-icon"
+                id="summaryIcon">
+                🔧
+            </div>
+
+
+            <h2 id="summaryName">
+                Equipment
+            </h2>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Quantity
+                </span>
+
+                <strong id="summaryQuantity">
+                    1
+                </strong>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Start Date
+                </span>
+
+                <strong id="summaryStart">
+                </strong>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Return Date
+                </span>
+
+                <strong id="summaryEnd">
+                </strong>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Rental Days
+                </span>
+
+                <strong id="summaryDays">
+                </strong>
+
+            </div>
+
+
+            <div class="summary-row">
+                <span>Schedule</span>
+                <strong id="summarySchedule"></strong>
+            </div>
+
+
+            <div class="summary-row">
+                <span>Method</span>
+                <strong id="summaryFulfillment"></strong>
+            </div>
+
+
+            <hr>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Price / Unit / Day
+                </span>
+
+                <strong id="summaryPrice">
+                </strong>
+
+            </div>
+
+
+            <div class="summary-row">
+
+                <span>
+                    Rental Subtotal
+                </span>
+
+                <strong id="summarySubtotal">
+                </strong>
+
+            </div>
+
+
+            <hr>
+
+
+            <div class="total-row">
+
+                <span>
+                    Estimated Total
+                </span>
+
+                <strong id="summaryTotal">
+                </strong>
+
+            </div>
+
+
+            <div class="summary-renter">
+
+                <h3>Renter</h3>
+
+                <p id="summaryFullName"></p>
+
+                <p id="summaryContact"></p>
+
+                <p id="summaryAddress"></p>
+
+                <p id="summaryVerification">
+                    🛡️ ID Submitted
+                </p>
+
+            </div>
+
+
+            <div class="summary-warning">
+
+                ⚠️ Late Return:
+                ₱100/hour after the agreed return time.
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="primary-btn"
+            onclick="confirmRental()">
+
+            Confirm & Book Rental
+
+        </button>
+
+    </section>
+
+
+    <!-- ================= CONFIRMATION ================= -->
+    <section id="confirmationScreen" class="screen">
+
+        <div class="confirmation">
+
+            <div class="success-icon">
+                ✓
+            </div>
+
+
+            <h1>
+                Rental Request Submitted!
+            </h1>
+
+
+            <p>
+                Your rental request has been submitted
+                for verification and confirmation.
+            </p>
+
+
+            <div class="confirmation-card">
+
+                <strong id="confirmationName">
+                    Equipment
+                </strong>
+
+                <p id="confirmationQuantity">
+                </p>
+
+                <p id="confirmationDates">
+                </p>
+
+                <p id="confirmationSchedule">
+                </p>
+
+                <p id="confirmationFulfillment">
+                </p>
+
+                <strong id="confirmationTotal">
+                </strong>
+
+            </div>
+
+
+            <button
+                class="primary-btn"
+                onclick="showRentals()">
+
+                View My Rentals
+
+            </button>
+
+
+            <button
+                class="secondary-btn"
+                onclick="goHome()">
+
+                Back to Home
+
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= RENTALS ================= -->
+    <section id="rentalsScreen" class="screen">
+
+        <header class="page-header">
+
+            <button
+                class="back-btn"
+                onclick="goHome()">
+                ‹
+            </button>
+
+            <div>
+
+                <h2>
+                    My Rentals
+                </h2>
+
+                <p>
+                    Your rental history
+                </p>
+
+            </div>
+
+        </header>
+
+
+        <div id="rentalHistory">
+
+            <div class="empty-rental">
+
+                <div>
+                    📦
+                </div>
+
+                <h3>
+                    No rentals yet
+                </h3>
+
+                <p>
+                    Your confirmed rentals will appear here.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= MESSAGES ================= -->
+    <section id="messagesScreen" class="screen">
+
+        <header class="page-header">
+            <button class="back-btn" onclick="goHome()">‹</button>
+            <div>
+                <h2>Messages</h2>
+                <p>Chat with ToolShare support</p>
+            </div>
+        </header>
+
+        <div class="support-card">
+            <div class="support-avatar">TS</div>
+            <div>
+                <strong>ToolShare Support</strong>
+                <p><span class="online-dot"></span> Usually replies within a few minutes</p>
+            </div>
+        </div>
+
+        <div id="messageList" class="message-list"></div>
+
+        <div class="message-composer">
+            <input id="messageInput" type="text" placeholder="Type your message..." maxlength="300" onkeydown="handleMessageKey(event)">
+            <button onclick="sendMessage()">➤</button>
+        </div>
+
+    </section>
+
+
+    <!-- ================= PROFILE ================= -->
+    <section id="profileScreen" class="screen">
+
+        <header class="page-header">
+            <button class="back-btn" onclick="goHome()">‹</button>
+            <div>
+                <h2>My Profile</h2>
+                <p>Manage your account details</p>
+            </div>
+        </header>
+
+        <div class="profile-hero">
+            <div class="profile-avatar" id="profileAvatar">U</div>
+            <div>
+                <h2 id="profileDisplayName">Guest User</h2>
+                <p>ToolShare renter</p>
+            </div>
+        </div>
+
+        <div class="profile-card">
+            <h3>Personal Information</h3>
+            <label>Full Name</label>
+            <input id="profileName" type="text" placeholder="Your full name">
+            <label>Contact Number</label>
+            <input id="profileContact" type="tel" maxlength="11" inputmode="numeric" placeholder="09XXXXXXXXX" oninput="sanitizeContactNumber(this)">
+            <label>Default Address</label>
+            <textarea id="profileAddress" rows="3" placeholder="Your complete address"></textarea>
+            <button class="primary-btn" onclick="saveProfile()">Save Profile</button>
+        </div>
+
+        <div class="profile-menu">
+            <button onclick="showRentals()"><span>📋</span><div><strong>My Rentals</strong><small>View your booking history</small></div><b>›</b></button>
+            <button onclick="showNotifications()"><span>🔔</span><div><strong>Notifications</strong><small>Booking updates and reminders</small></div><b>›</b></button>
+            <button onclick="showMessage()"><span>💬</span><div><strong>Support Messages</strong><small>Contact ToolShare support</small></div><b>›</b></button>
+        </div>
+
+    </section>
+
+
+    <!-- ================= NOTIFICATIONS ================= -->
+    <section id="notificationsScreen" class="screen">
+
+        <header class="page-header">
+            <button class="back-btn" onclick="goHome()">‹</button>
+            <div>
+                <h2>Notifications</h2>
+                <p>Stay updated on your rentals</p>
+            </div>
+            <button class="text-action" onclick="markAllNotificationsRead()">Read all</button>
+        </header>
+
+        <div id="notificationList" class="notification-list"></div>
+
+    </section>
+
+
+    <!-- ================= BOTTOM NAV ================= -->
+    <nav class="bottom-nav">
+
+        <button onclick="goHome()">
+            <span>⌂</span>
+            <small>Home</small>
+        </button>
+
+
+        <button onclick="showAllTools()">
+            <span>🔍</span>
+            <small>Browse</small>
+        </button>
+
+
+        <button onclick="showRentals()">
+            <span>📋</span>
+            <small>Rentals</small>
+        </button>
+
+
+        <button onclick="showMessage()">
+            <span>💬</span>
+            <small>Messages</small>
+        </button>
+
+
+        <button onclick="showProfile()">
+            <span>👤</span>
+            <small>Profile</small>
+        </button>
+
+    </nav>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
